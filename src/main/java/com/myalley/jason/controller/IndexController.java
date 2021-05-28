@@ -19,6 +19,7 @@ public class IndexController {
         model.addAttribute("errCode", indexService.json1());
         model.addAttribute("errMsg", indexService.json2());
         model.addAttribute("both", indexService.json3());
+        model.addAttribute("errCode2", indexService.json4());
         return "/index";
     }
 
