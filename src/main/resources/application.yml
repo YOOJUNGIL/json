@@ -1,0 +1,27 @@
+
+#dataSource
+#thymeleaf
+#logProfile
+spring:
+  datasource:
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/test
+    username: fintech
+    password: fintech
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    cache: false
+    check-template-location: true
+  profiles:
+    active: dev
+
+#mybatis.config-location=classpath:com/fintech/junit/mybatis/mybatis-config.xml
+mybatis:
+  type-aliases-package: com.myalley.jason.dao.dto
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:com/myalley/json/dao/service/**/*Mapper.xml
+
+#server port
+server.port: 8091
