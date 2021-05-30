@@ -1,11 +1,15 @@
 package com.myalley.jason.dao.service;
 
 import com.google.gson.*;
+import com.myalley.jason.dao.dto.FamilyDetail;
+import com.myalley.jason.dao.dto.FamilyMst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -15,7 +19,7 @@ public class GsonService {
     Gson gson = new Gson();
 
     private String json1 = "{ 'name' : 'yoojungil', 'corpName' : 'myalley' }";
-    private String json2 = "{ 'data' : [{ 'name' : '유정일', 'class' : '1학년2반', 'no' : '34' },{ 'name' : '유*서', 'class' : '1학년3반', 'no' : '45' },{ 'name' : '유*아', 'class' : '1학년9반', 'no' : '99' }] }";
+    private String json2 = "{ 'data' : [{ 'name' : '유정일', 'classes' : '1학년2반', 'no' : '34' },{ 'name' : '유*서', 'classes' : '1학년3반', 'no' : '45' },{ 'name' : '유*아', 'classes' : '1학년9반', 'no' : '99' }] }";
     private String jsonData1 = null;
     private String jsonData2 = null;
     private String jsonData3 = null;
@@ -112,6 +116,27 @@ public class GsonService {
                     log.debug("5classes : " + classes);
                     log.debug("5hobby : " + hobby);
                 }
+            }
+        }
+
+        /**
+         * Key있음 + List형태의 반봅구
+         * gson.fromJson이용해 FamilyMst
+         */
+        FamilyMst familyMst = gson.fromJson(jsonData2, FamilyMst.class);
+        if(log.isDebugEnabled()) {
+            log.debug("familyMst : " + familyMst);
+            log.debug("fmailyMst.father : " + familyMst.getFather());
+            log.debug("fmailyMst.moenther : " + familyMst.getMother());
+            log.debug("fmailyMst.familyCnt : " + familyMst.getFamilyCnt());
+        }
+        List<FamilyDetail> familyDetailList = familyMst.getFamilyList();
+        for(FamilyDetail each : familyDetailList) {
+            if(log.isDebugEnabled()) {
+                log.debug("familyDetail.no : " + each.getNo());
+                log.debug("familyDetail.name : " + each.getName());
+                log.debug("familyDetail.classes : " + each.getClasses());
+                log.debug("familyDetail.hobby : " + each.getHobby());
             }
         }
 
